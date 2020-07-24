@@ -34,31 +34,31 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-ingress-controller
-  namespace: kube-system
+  annotations:
+    service.beta.kubernetes.io/do-loadbalancer-enable-proxy-protocol: 'true'
+    service.beta.kubernetes.io/do-loadbalancer-hostname: 'www.tickets-best.xyz'
   labels:
-    addonmanager.kubernetes.io/mode: Reconcile
+    helm.sh/chart: ingress-nginx-2.0.3
+    app.kubernetes.io/name: ingress-nginx
+    app.kubernetes.io/instance: ingress-nginx
+    app.kubernetes.io/version: 0.32.0
+    app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: controller
-    app.kubernetes.io/instance: nginx-ingress-controller
-    app.kubernetes.io/name: nginx-ingress-controller
-    app.kubernetes.io/part-of: kube-system
+  name: ingress-nginx-controller
+  namespace: ingress-nginx
 spec:
+  type: LoadBalancer
+  externalTrafficPolicy: Local
   ports:
-    - name: port-1
-      protocol: TCP
+    - name: http
       port: 80
-      targetPort: 80
-    - name: port-2
       protocol: TCP
+      targetPort: http
+    - name: https
       port: 443
-      targetPort: 80
-    - name: port-3
       protocol: TCP
-      port: 8443
-      targetPort: 80
+      targetPort: https
   selector:
-    addonmanager.kubernetes.io/mode: Reconcile
-    app.kubernetes.io/name: nginx-ingress-controller
-    app.kubernetes.io/part-of: kube-system
-  type: ClusterIP
-  sessionAffinity: None
+    app.kubernetes.io/name: ingress-nginx
+    app.kubernetes.io/instance: ingress-nginx
+    app.kubernetes.io/component: controller
