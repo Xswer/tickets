@@ -8,6 +8,7 @@ import { PaymentCreatedListener } from './events/listeners/payment-created-liste
 const port = 3000;
 
 (async () => {
+  console.log('Bump');
   if (!process.env.JWT_KEY) {
     throw new Error('JWT must be defined');
   }
