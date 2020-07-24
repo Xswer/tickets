@@ -2,6 +2,7 @@ import { natsClient } from './lib/nats-client';
 import { OrderCreatedListener } from './events/listeners/order-created-listener';
 
 (async () => {
+  console.log('Bump');
   if (!process.env.NATS_CLUSTER_ID) {
     throw new Error('NATS_CLUSTER_ID must be defined');
   }
