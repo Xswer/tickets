@@ -3,7 +3,7 @@ import { app } from './app';
 const port = 3000;
 
 (async () => {
-  console.log('Bump');
+  console.log('Bump!');
 
   if (!process.env.JWT_KEY) {
     throw new Error('JWT must be defined');
